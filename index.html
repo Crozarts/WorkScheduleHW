@@ -29,103 +29,159 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
+     
       <!-- Timeblocks go here -->
       <!-- create workday grid outline 3x9 -->
+
+
       <div id="hr-9am" class="row time-block">
         <div class="col-md-1 hour">
           9am
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="9amtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('9am', document.getElementById('9amtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-10am" class="row time-block">
         <div class="col-md-1 hour">
           10am
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="10amtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('10am', document.getElementById('10amtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-11am" class="row time-block">
         <div class="col-md-1 hour">
           11am
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="11amtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('11am', document.getElementById('11amtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-12pm" class="row time-block">
         <div class="col-md-1 hour">
           12pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="12pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('12pm', document.getElementById('12pmtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-1pm" class="row time-block">
         <div class="col-md-1 hour">
           1pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="1pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('1pm', document.getElementById('1pmtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-2pm" class="row time-block">
         <div class="col-md-1 hour">
           2pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="2pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('2pm', document.getElementById('2pmtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-3pm" class="row time-block">
         <div class="col-md-1 hour">
           3pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="3pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('3pm', document.getElementById('3pmtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-4pm" class="row time-block">
         <div class="col-md-1 hour">
           4pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="4pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('4pm', document.getElementById('4pmtext').value)" id="save"  class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
       <div id="hr-5pm" class="row time-block">
         <div class="col-md-1 hour">
           5pm
         </div>
-        <textarea class="col-md-10 
-        description">
+        <textarea class="col-md-10" id="5pmtext">
         </textarea>
-        <button class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
+        <button onclick="saveToLocalStorage('5pm', document.getElementById('5pmtext').value)" id="save" class="btn saveBtn col-md-1"><i class="fas fa-save"></i>
         </button>
       </div>
-
+      
     </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-    <script src="Assets/script/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  </body>
+    <script>
+      // adding to current date, calling to moment.js
+      $(document).ready(function() {
+        var currentDate = moment().format("dddd MMMM Do YYYY")
+        $("#currentDay").text(currentDate);
+        updateTexts();
+      });
+  
+  // confirming current time and assigning it to a color
+  function timeZone() {
+      
+    var eventTime = moment().hour();
+    var currentTime = $('.row');
+        
+        currentTime.each(function () {
+          var match = parseInt($(this).attr('id'))
+          if (match < 9) {
+            match += 12;
+          }
+        // adding the colors for past, present, and future
+        let time = $(this)[0];
+        if (eventTime === match) {
+        $(time).addClass('present')
+        } 
+        else if (eventTime > match) {
+            $(time).addClass('past')
+            } 
+        else if (eventTime < match) {
+            $(time).addClass('future')
+        }
+    })
+ }
+ 
+ // save to local storage
+ timeZone();
+ storage = window.localStorage;
+ // the key = time and 
+ function saveToLocalStorage(key, value) {
+   localStorage.setItem(key, value);
+  }
+  // grabs the item from local storage
+  function getItemLocalStorage(key) {
+    let item = localStorage.getItem(key);
+    if (item == null) return "";
+    return item;
+  }
+
+  let texts = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'];
+
+  // updates text when you refresh your page
+    function updateTexts(){
+        for(text of texts) {
+            let item = getItemLocalStorage(text);
+            if (item != null) {
+                let textAreaKey = text + "text";
+                document.getElementById(textAreaKey).value = item;
+            }
+        }
+    }
+    </script>
+
+
+</body>
 </html>
