@@ -1,7 +1,7 @@
 # WorkScheduleHW
 
 ## Assignment 
-for this assignment we were assigned to create a simple Day planner, utilizing jQuery and scope tools. This planner was to save events to local storage, 
+for this assignment we were assigned to create a simple Day Planner, utilizing jQuery and scope tools. This planner was to save events to local storage, give color coded blocks given the time. red for current, green for future, grey for past time blocks. the time blocks were to be for every hour 9am - 5pm. (resembling a typical 9-5 work schedule)
 
 ## User Story
 
